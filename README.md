@@ -1,8 +1,7 @@
 # Vaasankatu
-Projektimme tavoitteena on luoda kysely, jolla selvitetään Haaga-Helian opiskelijoiden kiinnostusta vapaa-ajan toimintaa kohtaan. 
-Samalla pyrimme selvittämään millainen toiminta opiskelijoita kiinnostaisi ja kuinka paljon siitä ollaan valmiita maksamaan.
+Digiprojektiryhmän github.
 
-Tänne on koottu  projektin linkit, tiedostot sekä käytetyt työkalut.
+Tänne on koottu projektin tulokset, tiedostot ja käytetyt työkalut. Projekti on toteutettu yhteistyössä ohjelmistotuotannon kanssa. 
 
 ## Projektin kysely
 
