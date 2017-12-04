@@ -20,7 +20,7 @@ Tänne on koottu projektin tulokset, tiedostot ja käytetyt työkalut. Projekti 
 - [Digin projektitehtävät](https://trello.com/b/qL4IlPqa/teht%C3%A4v%C3%A4t)
 - [Sprint 1](https://trello.com/b/zYO23ZbB/sprint-1)
 - [Sprint 2](https://trello.com/b/glZ0OF1f/sprint-2)
-- [Sprint 3 - tba]
+- [Sprint 3](https://trello.com/b/ccCXPZSg/sprint-3)
 
 ### Backlog
 Backlog on yhteinen ohjelmistoprojektin kanssa ja osavastuu sen päivittämisestä kuuluu ohtulle.
