@@ -45,8 +45,3 @@ Backlog on yhteinen ohjelmistoprojektin kanssa ja osavastuu sen päivittämisest
 
 [Mocky](mocky) - Yksinkertaistettu testi Rest hausta
 
-
-## Otsikko
-Projekti toteutettu yhteistyössä ohjelmistotuotannon kanssa
-
-
