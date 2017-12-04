@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>JSON lukeminen mockysta</title>
+    <meta name="author" content="Vaasankatu">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <style>
+        html {
+            font-family: 'arial';
+        }
+        
+        h4 {
+            margin: 15px 0 5px 0;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="lomake"></div>
+    <br>
+    <input type="submit" value="submit" onclick="return form_send();" />
+
+
+
+    <script>
+        $.getJSON("http://www.mocky.io/v2/5a1d9be02e0000373c48b917", function (data) {
+            var items = [];
+            $.each(data, function (key, d) {
+                items.push("<h4><label>" + d.teksti + "</label></h4>");
+                if (d.type == "radio" || d.type == "checkbox") {
+                    for (var i = 0; i < d.value.length; i++) {
+                        items.push("<input type='" + d.type + "' name='" + d.id + "' value='" + d.value[i].teksti + "' required='" + d.required + "'/> " + d.value[i].teksti + "</br>");
+                        if (d.value[i].teksti == "Muu, mikä?") {
+                            items.push("<input type='text' id='" + d.id + "'/>");
+                        }
+                    }
+                }
+
+                if (d.type == "select") {
+                    items.push("<select>");
+                    for (var i = 0; i < d.value.length; i++) {
+                        items.push("<option name ='" + d.id + "' value='" + d.value[i].teksti + "'>" + d.value[i].teksti + "</option>");
+                    }
+                    items.push("</select>");
+                }
+            });
+            $("<div/>", {
+                "class": "my-new-list",
+                html: items.join("")
+            }).appendTo("#lomake");
+
+        });
+
+        function form_send() {
+            //luetaan kentät
+            var value1 = $("#lomake option[name ='1']:selected").val();
+            var value2 = $("#lomake option[name ='2']:selected").val();
+
+            var value3 = $("input:radio[name ='3']:checked").val();
+            var value5 = $("input:radio[name ='5']:checked").val();
+
+            var value4 = [];
+            $("input:checkbox[name='4']:checked").each(function () {
+                if ($(this).val() == "Muu, mikä?") {
+                    var other = document.getElementById('4').value;
+                    value4.push("Muu: " + other);
+                } else {
+                    value4.push($(this).val());
+                }
+            });
+            
+            var value6 = [];
+            $("input:checkbox[name='6']:checked").each(function () {
+                if ($(this).val() == "Muu, mikä?") {
+                    var other = document.getElementById('6').value;
+                    value6.push("Muu, mikä: " + other);
+                } else {
+                    value6.push($(this).val());
+                }
+            });
+            
+            //kaikki kentät pakko täyttää
+            if ("<input required=true>") {
+                var checked = document.querySelector("input[type=radio]:checked");
+                var selected = $("#lomake option:selected").val();
+                if (!checked || value4.length == 0 || value6.length == 0) {
+                    alert("Täytä kaikki kohdat");
+                    return false;
+                }
+            }
+            
+            //tulostetaan vastaukset konsoliin
+            console.log(value1 + "\n" + value2 + "\n" + value3 + "\n" + value4 + "\n" + value5 + "\n" + value6);
+
+            /*
+            var jsonData = [{
+                "kymysId": "1",
+                "vastaus": value1
+            }, {
+                "kymysId": "2",
+                "vastaus": value2
+            }, {
+                "kymysId": "3",
+                "vastaus": value3
+            }, {
+                "kymysId": "4",
+                "vastaus": value4
+            }, {
+                "kymysId": "5",
+                "vastaus": value5
+            }, {
+                "kymysId": "6",
+                "vastaus": value6
+            }];
+
+            var myJSON = JSON.stringify(jsonData);
+
+            $.ajax({
+                url: 'http://www.mocky.io/v2/5a1d98352e00005c3b48b90c',
+                type: 'POST',
+                dataType: 'json',
+                data: jsonData,
+                success: function () {
+                    console.log('POST completed. Data:\n' + myJSON)
+                }
+            });
+            */
+        }
+    </script>
+
+</body>
+
+</html>
