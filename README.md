@@ -3,7 +3,7 @@
 
 ## Projektin kysely
 
-[lomake/ttempo.html](myy.haaga-helia.fi/~a1602671/lomake/ttempo.html) - Lomake myy palvelimella
+[lomake/ttempo.html](http://myy.haaga-helia.fi/~a1602671/lomake/ttempo.html) - Lomake myy palvelimella
 
 
 ## Käytetyt työkalut
