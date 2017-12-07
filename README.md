@@ -5,7 +5,8 @@ Tänne on koottu projektin tulokset, tiedostot ja käytetyt työkalut. Projekti 
 
 ## Projektin kysely
 
-[lomake/ttempo.html](http://myy.haaga-helia.fi/~a1602671/lomake/ttempo.html) - Lomake myy palvelimella (wip)
+[lomake ttempo.ovh](http://ttempo.ovh/) - Lomake ohtun palvelimella
+[lomake/ttempo.html](http://myy.haaga-helia.fi/~a1602671/lomake/ttempo.html) - Lomake myy palvelimella (kokeiluversio digille)
 
 
 ## Käytetyt työkalut
