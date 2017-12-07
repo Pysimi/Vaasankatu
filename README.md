@@ -7,8 +7,6 @@ Tänne on koottu projektin tulokset, tiedostot ja käytetyt työkalut. Projekti 
 
 [lomake/ttempo.html](http://myy.haaga-helia.fi/~a1602671/lomake/ttempo.html) - Lomake myy palvelimella (wip)
 
-[ttempo.ovh](https://ttempo.ovh) - Lomake OHTUn omalla palvelimella
-
 
 ## Käytetyt työkalut
 - [Mocky](http://www.mocky.io) - Rest haun testaamiseen
