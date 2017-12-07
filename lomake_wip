@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109931008-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-109931008-1');
+    </script>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-utf-8">
+    <meta charset="utf-8">
+    <!-- ääkköset menee rikki introtekstissä jos ei lisää tätä? en tiedä miksi tuo ylemmän rivin pätkä ei muka toimi -->
+    <title>Kysely</title>
+
+    <script type="text/javascript">
+        var _paq = _paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function () {
+            var u = "//ttempo.ovh/piwik/";
+            _paq.push(['setTrackerUrl', u + 'piwik.php']);
+            _paq.push(['setSiteId', '1']);
+            var d = document,
+                g = d.createElement('script'),
+                s = d.getElementsByTagName('script')[0];
+            g.type = 'text/javascript';
+            g.async = true;
+            g.defer = true;
+            g.src = u + 'piwik.js';
+            s.parentNode.insertBefore(g, s);
+        })();
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+        }
+        
+        .form-style-8 {
+            font-family: 'Open Sans', sans-serif;
+            width: 800px;
+            padding: 30px;
+            background: #FFFFFF;
+            margin: 50px auto;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+            -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+            -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+        }
+        
+        .form-style-8 h2 {
+            margin: 20px 0 5px 0;
+            font-size: 16px;
+        }
+        
+        .form-style-8 input[type="text"],
+        .form-style-8 textarea,
+        .form-style-8 select {
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            outline: none;
+            display: block;
+            width: 100%;
+            padding: 7px;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            background: transparent;
+            margin-bottom: 10px;
+            font: 16px Arial, Helvetica, sans-serif;
+            height: 45px;
+        }
+        
+        .form-style-8 textarea {
+            resize: none;
+            overflow: hidden;
+        }
+        
+        .form-style-8 input[type="button"],
+        .form-style-8 input[type="submit"] {
+            -moz-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+            -webkit-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+            box-shadow: inset 0px 1px 0px 0px #45D6D6;
+            background-color: #2CBBBB;
+            border: 1px solid #27A0A0;
+            display: inline-block;
+            cursor: pointer;
+            color: #FFFFFF;
+            font-size: 14px;
+            padding: 8px 18px;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+        
+        .form-style-8 input[type="button"]:hover,
+        .form-style-8 input[type="submit"]:hover {
+            background: linear-gradient(to bottom, #34CACA 5%, #30C9C9 100%);
+            background-color: #34CACA;
+        }
+        
+        #overlay {
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            font-family: 'Open Sans', sans-serif;
+            z-index: 2;
+            cursor: pointer;
+        }
+        
+        #overlay_text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            font-size: 50px;
+            color: white;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+        }
+        
+        #hide1 {
+            display: none;
+        }
+        
+        #hide2 {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <noscript>Sorry, your browser does not support JavaScript!</noscript>
+    <noscript><img src="//ttempo.ovh/piwik/piwik.php?idsite=1&rec=1" style="border:0;" alt="" /></noscript>
+
+
+    <div id="jquery" class="form-style-8">
+        <div class="intro">
+            <p>Kyselyn tarkoituksena on kartoittaa Haaga-Helian opiskelijoiden kiinnostusta järjestettyyn vapaa-ajan toimintaan. Kyselyssä on 8 kohtaa täytettävänä. </p>
+            </br>
+        </div>
+    </div>
+
+    <pre id="results"></pre>
+    <button onclick="on()">kiitos</button>
+    <a href="http://ttempo.ovh/anwer.php" target="_blank">vastauksiin</a>
+    <a href="http://ttempo.ovh/querie.php" target="_blank">kyselyn statis</a>
+
+    <div id="overlay" onclick="off()">
+        <div id="overlay_text">Kiitos vastauksesta</div>
+    </div>
+
+    <script type="text/javascript">
+        function queries_json_get() {
+            console.log("queries_json_get ");
+            var request = "";
+            var queries = "";
+
+            queries = $.ajax({
+                dataType: "json",
+                url: "http://ttempo.ovh:8080/KyselyRest/api/surveys",
+                data: request,
+                success: function (queries) {
+                    form_html_creater(queries);
+                }
+            });
+            // alert(queries);
+
+            //$("#jquery").text(queries[0]['querie_uuid']);
+        }
+
+        function form_html_creater(queries) {
+
+            console.log("form_html_creater");
+            queries_json_to_form(queries);
+        }
+
+
+
+        function queries_json_to_form(queries) {
+            var querie = "66e34927-cf17-11e7-8e2d-fa163e435952";
+
+            $("#jquery").append("<form action='' id='querie_form' method='POST'>");
+
+            var querie_tag = "<input type='hidden' name='querie' value='" + querie + "' />";
+            $("#querie_form").append(querie_tag);
+            console.log("queries_json_to_form");
+
+            var form_array = new Array();
+            // console.log("queries_json_to_html var dump queries " + queries[0]);
+            // $("#jquery").text(queries[0]['querie_uuid']);
+            // var option = $.parseJSON(queries[0]['querie_detail'][0]['option']);
+            // console.log(option);
+
+            for (i_querie = 0; i_querie < queries.length; i_querie++) {
+                // console.log(i_querie + " run and i_querie querie uuid " + queries[i_querie]['querie_uuid']);
+
+                if (queries[i_querie]['querie_uuid'] == querie)
+                    for (i_querie_detail = 0; i_querie_detail < queries[i_querie]['querie_detail'].length; i_querie_detail++) {
+                        //console.log(queries[i_querie]['querie_detail'][i_querie_detail]['type']);
+
+                        var querie_detail_one = queries[i_querie]['querie_detail'][i_querie_detail];
+
+                        if (form_array[querie_detail_one['querie_ordinal']] == null)
+                            form_array[querie_detail_one['querie_ordinal']] = new Array();
+
+                        form_array[querie_detail_one['querie_ordinal']][querie_detail_one['querie_detail_serial']] = querie_detail_one;
+
+
+                    }
+            }
+
+            queries_form_to_html(form_array);
+        }
+
+        function queries_form_to_html(form_array) {
+
+            var form_html = "";
+            console.log(form_html);
+            for (i_inquiry = 0; i_inquiry < form_array.length; i_inquiry++) {
+                //console.log(form_array[i_inquiry][0]['inquiry']);
+
+                for (i_inquiry_point = 0; i_inquiry_point < form_array[i_inquiry].length; i_inquiry_point++) {
+                    var question = form_array[i_inquiry][i_inquiry_point];
+                    //console.log(question);
+
+                    if (i_inquiry_point == 0)
+                        form_html += "<h2><label>" + question['inquiry'] + "</label></h2>";
+
+                    switch (question['type']) {
+                    case "text":
+                        if (i_inquiry_point == 0)
+                            form_html += "<label>" + question['context'] + "</label></br>";
+                        form_html += "<input type='text' name='" + question['querie_detail_uuid'] + "' />";
+                        break;
+                    case "radio":
+                        var radio_option = $.parseJSON(question['option']);
+                        for (i_radio_option = 0; i_radio_option < radio_option.length; i_radio_option++) {
+                            form_html += "<input name='" + question['querie_detail_uuid'] + "' value='" + radio_option[i_radio_option] + "' type='radio'>";
+                            form_html += "<label>" + radio_option[i_radio_option] + "</label><br />";
+                        }
+                        break;
+                    case "checkbox":
+                        form_html += "<input name='" + question['querie_detail_uuid'] + "' value='" + question['context'] + "' type='checkbox'>";
+                        form_html += "<label>" + question['context'] + "</label></br>";
+                        break;
+                    case "select":
+                        form_html += "<select name= '" + question['querie_detail_uuid'] + "'>";
+                        var select_option = $.parseJSON(question['option']);
+                        // console.log(select_option);
+                        for (i_select_option = 0; i_select_option < select_option.length; i_select_option++) {
+                            if (i_select_option == 0) {
+                                form_html += "<option value='" + select_option[i_select_option] + "' selected='true' >" + select_option[i_select_option] + "</option>";
+                            } else {
+                                form_html += "<option value='" + select_option[i_select_option] + "' >" + select_option[i_select_option] + "</option>";
+                            }
+                        }
+                        form_html += "</select>";
+                        break;
+                    }
+
+
+                }
+
+            }
+            // html_to_page(form_html);
+            form_html += "<input type='button' onclick='form_send()' value='LÄHETÄ'/>";
+            $("#querie_form").append(form_html);
+
+        }
+
+        function html_to_page(form_html) {
+
+        }
+
+        $(document).ready(function () {
+            console.log("document loaded");
+        });
+        $(window).on("load", function () {
+            console.log("window loaded");
+            queries_json_get();
+        });
+
+
+        function form_send() {
+            var formData = $("form").serializeArray(); // Create array of object
+            var jsonConvertedData = JSON.stringify(formData); // Convert to json
+            console.log(formData);
+
+            var querie = "";
+            var formData_querie_array = new Array();
+            for (var i_formData = 0; i_formData < formData.length; i_formData++) {
+                if (i_formData == 0) {
+                    querie = formData[i_formData].value;
+                } else {
+                    var formData_querie_object = new Object();
+                    formData_querie_object.querie_detail_uuid = formData[i_formData].name;
+                    formData_querie_object.answer_value = formData[i_formData].value;
+                    formData_querie_array.push(formData_querie_object);
+                }
+            }
+
+            var formData_querie = new Object();
+            formData_querie.querie_uuid = querie;
+            formData_querie.querie_detail = formData_querie_array;
+
+            var formData_querie_json = JSON.stringify(formData_querie);
+
+
+            formData_querie_json = '' + formData_querie_json;
+            console.log(formData_querie_json);
+
+            $.ajax({
+                url: 'http://ttempo.ovh:8080/KyselyRest/api/survey/newresponse',
+                dataType: 'json',
+                type: 'post',
+                contentType: 'application/json',
+                data: formData_querie_json,
+                processData: false,
+                success: function (data, status) {
+                    on();
+                    onsole.log("Data: " + data + "\nStatus: " + status);
+                    $("#querie_form").trigger('reset');
+                }
+            });
+
+
+            //$.post("http://ttempo.ovh:8080/KyselyRest/api/survey/newresponse",
+            //data: formData_querie_json,
+            //dataType: "JSON",
+            //success: function(data,status){
+            //		on();
+            //         console.log("Data: " + data + "\nStatus: " + status);
+            //		 $("#querie_form").trigger('reset');
+            //    });JSON.stringify( 
+
+
+
+            //$.ajax({
+            //url      : 'http://ttempo.ovh:8080/KyselyRest/api/surveys/newresponse',
+            //dataType : 'json', // I was pretty sure this would do the trick
+            //data     : formData_querie_json,
+            //type     : 'POST',
+            //});
+
+            console.log(formData[0].name);
+
+
+
+            //$.ajax({
+            //   type: 'POST',
+            //   url: 'http://ttempo.ovh:8080/KyselyRest/api/surveys/newresponse', //$('#lomake').attr('action'),
+            //   data: $('#querie_form').serialize(),   // I WANT TO ADD EXTRA DATA + SERIALIZE DATA
+            //   success:function(data){
+            //	console.log("querie_form_send");
+            //	on();
+            //	$("#lomake").trigger('reset');
+            //   }
+            //});
+        }
+
+        function on() {
+            document.getElementById("overlay").style.display = "block";
+        }
+
+        function off() {
+            document.getElementById("overlay").style.display = "none";
+        }
+    </script>
+
+    <script type="text/javascript">
+        setInterval(function () {
+            $(document).ready(showValues());
+
+            function showValues() {
+                var formData = $("form").serializeArray(); // Create array of object
+                var jsonConvertedData = JSON.stringify(formData); // Convert to json
+                console.log(formData);
+
+                var querie = "";
+                var formData_querie_array = new Array();
+                for (var i_formData = 0; i_formData < formData.length; i_formData++) {
+                    if (i_formData == 0) {
+                        querie = formData[i_formData].value;
+                    } else {
+                        var formData_querie_object = new Object();
+                        formData_querie_object.querie_detail_uuid = formData[i_formData].name;
+                        formData_querie_object.answer_value = formData[i_formData].value;
+                        formData_querie_array.push(formData_querie_object);
+                    }
+                }
+
+                var formData_querie = new Object();
+                formData_querie.querie_uuid = querie;
+                formData_querie.querie_detail = formData_querie_array;
+
+                var formData_querie_json = JSON.stringify(formData_querie);
+
+
+                formData_querie_json = '' + formData_querie_json;
+                console.log(formData_querie_json);
+                $("#results").empty();
+                $("#results").append(jsonConvertedData.replace(/{/g, '\n{') + "\n\n" + formData_querie_json.replace(/{/g, '\n{'));
+            }
+
+            console.log("showValues3");
+            $(":checkbox, :radio").click(showValues);
+            $("select").change(showValues);
+            showValues();
+
+        }, 3000);
+    </script>
+
+</body>
+
+</html>
